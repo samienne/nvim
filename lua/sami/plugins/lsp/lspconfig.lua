@@ -84,8 +84,14 @@ return {
 
             opts.desc = "Format file"
             keymap.set("n", "<leader>cF", function()
-                vim.lsp.buf.format { async = true }
+                vim.lsp.buf.format({ async = true })
             end)
+
+            opts.desc = "Format selection"
+            keymap.set("v", "<leader>cf", function()
+                vim.lsp.buf.format({ remap = false })
+            end, opts)
+
 
             opts.desc = "Search workspace symbols"
             keymap.set("n", "<leader>ss", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opts)

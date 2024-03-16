@@ -40,3 +40,5 @@ vim.api.nvim_command("au InsertLeave * 2match ExtraWhiteSpace /\\s\\+$/")
 -- backspace
 opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
 
+vim.cmd("set matchpairs+=<:>")
+
