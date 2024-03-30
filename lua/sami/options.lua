@@ -30,6 +30,9 @@ opt.listchars = {
 opt.scrolloff = 8
 opt.formatoptions = "croqljn"
 
+vim.cmd("autocmd WinEnter * setlocal cursorline")
+vim.cmd("autocmd WinLeave * setlocal nocursorline")
+
 vim.api.nvim_command("hi NonText guifg=gray ctermfg=gray")
 
 -- Highlight trailing whitespace
@@ -39,6 +42,8 @@ vim.api.nvim_command("au InsertLeave * 2match ExtraWhiteSpace /\\s\\+$/")
 
 -- backspace
 opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
+
+vim.cmd("set title titlestring=%F")
 
 vim.cmd("set matchpairs+=<:>")
 

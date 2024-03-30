@@ -7,10 +7,8 @@ return {
         "joechrisellis/lsp-format-modifications.nvim",
     },
     config = function()
-        -- import lspconfig plugin
         local lspconfig = require("lspconfig")
 
-        -- import cmp-nvim-lsp plugin
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
         local keymap = vim.keymap -- for conciseness
@@ -34,52 +32,52 @@ return {
             opts.buffer = bufnr
 
             -- set keybinds
+            opts.desc = "Toggle lsp signatures"
+            vim.keymap.set({ 'n', "i" }, '<C-k>', vim.lsp.buf.signature_help, opts)
+
             opts.desc = "Show LSP references"
-            keymap.set("n", "gu", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+            keymap.set("n", "<leader>gu", "<cmd>Telescope lsp_references path_display={'smart'}<CR>", opts)
 
             opts.desc = "Go to declaration"
-            keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+            keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
 
             opts.desc = "Show LSP definitions"
-            keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+            keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 
             opts.desc = "Show LSP implementations"
-            keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+            keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 
             opts.desc = "Show LSP type definitions"
-            keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+            keymap.set("n", "<leader>gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+
+            opts.desc = "Live grep"
+            keymap.set("n", "<leader>fr", "<cmd>Telescope live_grep<CR>", opts)
 
             opts.desc = "See available code actions"
-            keymap.set({ "n", "v" }, "<leader>fi", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+            keymap.set({ "n", "v" }, "<leader>fi", vim.lsp.buf.code_action, opts)
 
             opts.desc = "Smart rename"
-            keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+            keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
             opts.desc = "Show buffer diagnostics"
-            keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+            keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 
             opts.desc = "Show line diagnostics"
-            keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
+            keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
 
             opts.desc = "Go to previous diagnostic"
-            keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+            keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 
             opts.desc = "Go to next diagnostic"
-            keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+            keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
             opts.desc = "Show documentation for what is under cursor"
-            keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+            keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
             opts.desc = "Restart LSP"
-            keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+            keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
 
             opts.desc = "Format modified lines"
-            --[[
-            keymap.set("n", "<leader>cf", function()
-                local lsp_format_modifications = require("lsp-format-modifications")
-                lsp_format_modifications.format_modifications(client, bufnr)
-            end)
-            --]]
             keymap.set("n", "<leader>cf", "<cmd>FormatModifications<cr>", opts)
 
             opts.desc = "Format file"
@@ -92,12 +90,14 @@ return {
                 vim.lsp.buf.format({ remap = false })
             end, opts)
 
-
             opts.desc = "Search workspace symbols"
             keymap.set("n", "<leader>ss", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opts)
 
             opts.desc = "Search document symbols"
             keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", opts)
+
+            opts.desc = "Switch between source and header file (clangd)."
+            keymap.set("n", "<leader>a", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
         end
 
         -- used to enable autocompletion (assign to every lsp server config)
