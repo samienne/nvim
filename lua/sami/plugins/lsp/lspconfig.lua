@@ -36,22 +36,19 @@ return {
             vim.keymap.set({ 'n', "i" }, '<C-k>', vim.lsp.buf.signature_help, opts)
 
             opts.desc = "Show LSP references"
-            keymap.set("n", "<leader>gu", "<cmd>Telescope lsp_references path_display={'smart'}<CR>", opts)
+            keymap.set("n", "gu", "<cmd>Telescope lsp_references path_display={'smart'}<CR>", opts)
 
             opts.desc = "Go to declaration"
-            keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
+            keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 
             opts.desc = "Show LSP definitions"
-            keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+            keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 
             opts.desc = "Show LSP implementations"
-            keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+            keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 
             opts.desc = "Show LSP type definitions"
-            keymap.set("n", "<leader>gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-
-            opts.desc = "Live grep"
-            keymap.set("n", "<leader>fr", "<cmd>Telescope live_grep<CR>", opts)
+            keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
             opts.desc = "See available code actions"
             keymap.set({ "n", "v" }, "<leader>fi", vim.lsp.buf.code_action, opts)
@@ -113,7 +110,12 @@ return {
 
         -- configure clangd server
         lspconfig["clangd"].setup({
-            cmd = { "clangd", "--background-index" },
+            cmd = { "nice", "-n", "19", "clangd", "--background-index" },
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+
+        lspconfig["mesonlsp"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
