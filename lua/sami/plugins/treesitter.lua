@@ -25,6 +25,7 @@ return {
                     "bash",
                     "lua",
                     "vim",
+                    "vimdoc",
                     "cpp",
                     "gitignore",
                 },

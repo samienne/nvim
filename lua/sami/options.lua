@@ -29,6 +29,8 @@ opt.listchars = {
 
 opt.scrolloff = 8
 opt.formatoptions = "croqljn"
+opt.completeopt = "longest,menuone"
+opt.wildmode = "longest:full"
 
 vim.cmd("autocmd WinEnter * setlocal cursorline")
 vim.cmd("autocmd WinLeave * setlocal nocursorline")
