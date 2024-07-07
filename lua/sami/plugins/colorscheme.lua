@@ -19,9 +19,17 @@ return {
   {
       "elianiva/icy.nvim",
       priority = 1000,
-      enabled = true,
+      enabled = false,
       config = function()
           vim.cmd([[colorscheme icy]])
+      end,
+  },
+  {
+      "rebelot/kanagawa.nvim",
+      priority = 1000,
+      enabled = true,
+      config = function()
+          vim.cmd([[colorscheme kanagawa]])
       end,
   },
 }
