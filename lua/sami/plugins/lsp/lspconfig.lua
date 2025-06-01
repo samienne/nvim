@@ -110,7 +110,8 @@ return {
 
         -- configure clangd server
         lspconfig["clangd"].setup({
-            cmd = { "nice", "-n", "19", "clangd", "--background-index" },
+            cmd = { "nice", "-n", "19", "clangd-21", "--background-index" },
+            root_dir = lspconfig.util.root_pattern("compile_commands.json"),
             capabilities = capabilities,
             on_attach = on_attach,
         })
