@@ -30,6 +30,7 @@ return {
             lspconfig.util.default_config.on_attach(client, bufnr)
 
             opts.buffer = bufnr
+            local builtin = require('telescope.builtin')
 
             -- set keybinds
             opts.desc = "Toggle lsp signatures"
@@ -37,6 +38,9 @@ return {
 
             opts.desc = "Show LSP references"
             keymap.set("n", "gu", "<cmd>Telescope lsp_references path_display={'smart'}<CR>", opts)
+
+            opts.desc = "Show LSP incoming"
+            keymap.set("n", "gu", "<cmd>Telescope lsp_incoming_calls path_display={'smart'}<CR>", opts)
 
             opts.desc = "Go to declaration"
             keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
@@ -64,6 +68,9 @@ return {
 
             opts.desc = "Go to previous diagnostic"
             keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+
+            opts.desc = "Lsp diagnostics"
+            keymap.set('n', '<leader>dd', builtin.diagnostics, opts)
 
             opts.desc = "Go to next diagnostic"
             keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
@@ -115,8 +122,9 @@ return {
             capabilities = capabilities,
             on_attach = on_attach,
         })
+        --]]
 
-        lspconfig["mesonlsp"].setup({
+        lspconfig["tsserver"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })

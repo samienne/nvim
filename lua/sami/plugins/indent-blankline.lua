@@ -2,6 +2,8 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     enabled = true,
     main = "ibl",
+    ---@module "ibl",
+    ---@type ibl.config,
     opts = {},
     config = function()
         local highlight = {
@@ -10,11 +12,12 @@ return {
 
         require("ibl").setup({
             indent = {
-                highlight = highlight,
-                char = "",
+                --highlight = highlight,
+                --char = ":",
+                char = "│",
             },
             whitespace = {
-                highlight = highlight,
+                --highlight = highlight,
                 remove_blankline_trail = false,
             },
             scope = {

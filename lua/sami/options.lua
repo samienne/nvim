@@ -27,10 +27,11 @@ opt.listchars = {
     trail="·"
 }
 
-opt.scrolloff = 8
+opt.scrolloff = 10
 opt.formatoptions = "croqljn"
 opt.completeopt = "longest,menuone"
-opt.wildmode = "longest:full"
+opt.wildmode = "list:longest:list:full"
+opt.jumpoptions = "stack"
 
 vim.cmd("autocmd WinEnter * setlocal cursorline")
 vim.cmd("autocmd WinLeave * setlocal nocursorline")
