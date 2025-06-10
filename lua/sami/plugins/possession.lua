@@ -3,6 +3,7 @@ return {
     dependencies = {
         "ibhagwan/fzf-lua",
     },
+    enabled = false,
     opts = {
         autosave = true,
         autoswitch = {

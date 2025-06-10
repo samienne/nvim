@@ -10,6 +10,8 @@ return {
             -- import nvim-treesitter plugin
             local treesitter = require("nvim-treesitter.configs")
 
+            require("nvim-treesitter.install").prefer_git = true
+
             -- configure treesitter
             treesitter.setup({ -- enable syntax highlighting
                 highlight = {

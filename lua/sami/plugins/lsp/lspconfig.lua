@@ -30,29 +30,29 @@ return {
             lspconfig.util.default_config.on_attach(client, bufnr)
 
             opts.buffer = bufnr
-            local builtin = require('telescope.builtin')
+            --local builtin = require('telescope.builtin')
 
             -- set keybinds
             opts.desc = "Toggle lsp signatures"
             vim.keymap.set({ 'n', "i" }, '<C-k>', vim.lsp.buf.signature_help, opts)
 
             opts.desc = "Show LSP references"
-            keymap.set("n", "gu", "<cmd>Telescope lsp_references path_display={'smart'}<CR>", opts)
+            --keymap.set("n", "gu", "<cmd>Telescope lsp_references path_display={'smart'}<CR>", opts)
 
             opts.desc = "Show LSP incoming"
-            keymap.set("n", "gu", "<cmd>Telescope lsp_incoming_calls path_display={'smart'}<CR>", opts)
+            --keymap.set("n", "gu", "<cmd>Telescope lsp_incoming_calls path_display={'smart'}<CR>", opts)
 
             opts.desc = "Go to declaration"
             keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 
             opts.desc = "Show LSP definitions"
-            keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+            --keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 
             opts.desc = "Show LSP implementations"
-            keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+            --keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 
             opts.desc = "Show LSP type definitions"
-            keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+            --keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
             opts.desc = "See available code actions"
             keymap.set({ "n", "v" }, "<leader>fi", vim.lsp.buf.code_action, opts)
@@ -61,7 +61,7 @@ return {
             keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
             opts.desc = "Show buffer diagnostics"
-            keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+            --keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 
             opts.desc = "Show line diagnostics"
             keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
@@ -70,7 +70,7 @@ return {
             keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 
             opts.desc = "Lsp diagnostics"
-            keymap.set('n', '<leader>dd', builtin.diagnostics, opts)
+            --keymap.set('n', '<leader>dd', builtin.diagnostics, opts)
 
             opts.desc = "Go to next diagnostic"
             keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
@@ -95,10 +95,10 @@ return {
             end, opts)
 
             opts.desc = "Search workspace symbols"
-            keymap.set("n", "<leader>ss", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opts)
+            --keymap.set("n", "<leader>ss", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opts)
 
             opts.desc = "Search document symbols"
-            keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", opts)
+            --keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", opts)
 
             opts.desc = "Switch between source and header file (clangd)."
             keymap.set("n", "<leader>a", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
@@ -137,7 +137,7 @@ return {
                 Lua = {
                     -- make the language server recognize "vim" global
                     diagnostics = {
-                        globals = { "vim" },
+                        globals = { "vim", "Snacks" },
                     },
                     workspace = {
                         -- make language server aware of runtime files

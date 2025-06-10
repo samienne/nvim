@@ -2,7 +2,7 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
-        "gennaro-tedesco/nvim-possession"
+        --"gennaro-tedesco/nvim-possession"
     },
     config = function()
         local lualine = require("lualine")
@@ -61,12 +61,14 @@ return {
             sections = {
                 lualine_c = {
                     { "filename", path = 1 },
+                    --[[
                     {
                         require("nvim-possession").status,
                         cond = function()
                             return require("nvim-possession").status() ~= nil
                         end,
                     },
+                    --]]
                 },
                 lualine_x = {
                     {
