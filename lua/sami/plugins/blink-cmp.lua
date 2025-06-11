@@ -1,3 +1,12 @@
+local has_words_before = function()
+  local col = vim.api.nvim_win_get_cursor(0)[2]
+  if col == 0 then
+    return false
+  end
+  local line = vim.api.nvim_get_current_line()
+  return line:sub(col, col):match("%s") == nil
+end
+
 return {
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
@@ -27,25 +36,25 @@ return {
     -- See :h blink-cmp-config-keymap for defining your own keymap
     keymap = {
         preset = 'default',
-        --['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-        --['<C-e>'] = { 'hide', 'fallback' },
+        ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-e>'] = { 'hide', 'fallback' },
 
         ['<Tab>'] = {
-            --[[
             function(cmp)
-                --if cmp.is_visible() then
-                    cmp.select_next()
-                --else
-                    --cmp.select_and_accept()
-                    --cmp.fallback()
-                --end
+                if has_words_before() then
+                    if cmp.get_selected_item() ~= nil and not cmp.is_menu_visible() then
+                        cmp.insert_prev()
+                        cmp.show({ initial_selected_item_idx = cmp.get_selected_item_idx() })
+                        cmp.show_documentation()
+                        return true
+                    end
+
+                    return cmp.insert_next()
+                end
             end,
-            --]]
-            'select_next',
             'fallback'
         },
-        ['<S-Tab>'] = { 'select_prev', 'fallback' },
-
+        ['<S-Tab>'] = { 'insert_prev', 'fallback' },
         --['<Up>'] = { 'select_prev', 'fallback' },
         --['<Down>'] = { 'select_next', 'fallback' },
         --['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
@@ -54,7 +63,11 @@ return {
         --['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
         --['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
 
-        --['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+        ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+    },
+
+    signature = {
+        enabled = false,
     },
 
     appearance = {
@@ -63,9 +76,8 @@ return {
       nerd_font_variant = 'mono'
     },
 
-    -- (Default) Only show the documentation popup when manually triggered
     completion = {
-        documentation = { auto_show = false },
+        documentation = { auto_show = true },
         ghost_text = {
             enabled = true,
             show_with_selection = true,
