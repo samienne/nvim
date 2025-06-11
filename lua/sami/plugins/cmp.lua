@@ -7,6 +7,7 @@ return {
         "hrsh7th/cmp-path", -- source for file system paths
         "onsails/lspkind.nvim", -- vs-code like pictograms
     },
+    enabled = false,
     config = function()
         local cmp = require("cmp")
 
