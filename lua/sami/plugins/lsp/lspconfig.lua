@@ -117,14 +117,31 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
+        local clangd = { "clangd" }
+
+        local clangd_ohos = "/srv/workspace/hmos_dev_system_general_20250303_0054_huawei_9d72422b1/code/prebuilts/ohos-sdk/linux/12/native/llvm/bin/clangd"
+        if vim.uv.fs_stat(clangd_ohos) then
+            clangd = { clangd_ohos }
+        end
+
+        if vim.loop.os_uname().sysname == "Linux" then
+            clangd = { "nice", "-n", "19", unpack(clangd) }
+        end
+
+        table.insert(clangd, "--background-index")
+
         -- configure clangd server
         lspconfig["clangd"].setup({
+<<<<<<< Updated upstream
             cmd = { "nice", "-n", "19", "clangd-21", "--background-index" },
             root_dir = lspconfig.util.root_pattern("compile_commands.json"),
+=======
+            cmd = clangd,
+            root_dir = lspconfig.util.root_pattern('compile_commands.json'),
+>>>>>>> Stashed changes
             capabilities = capabilities,
             on_attach = on_attach,
         })
-        --]]
 
         lspconfig["tsserver"].setup({
             capabilities = capabilities,
