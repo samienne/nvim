@@ -132,13 +132,8 @@ return {
 
         -- configure clangd server
         lspconfig["clangd"].setup({
-<<<<<<< Updated upstream
-            cmd = { "nice", "-n", "19", "clangd-21", "--background-index" },
-            root_dir = lspconfig.util.root_pattern("compile_commands.json"),
-=======
             cmd = clangd,
             root_dir = lspconfig.util.root_pattern('compile_commands.json'),
->>>>>>> Stashed changes
             capabilities = capabilities,
             on_attach = on_attach,
         })
