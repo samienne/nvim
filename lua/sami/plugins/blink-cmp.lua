@@ -39,6 +39,7 @@ return {
         ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<C-e>'] = { 'hide', 'fallback' },
 
+        --['<Tab>'] = { 'insert_next', 'fallback' },
         ['<Tab>'] = {
             function(cmp)
                 if has_words_before() then
@@ -67,7 +68,7 @@ return {
     },
 
     signature = {
-        enabled = false,
+            enabled = true,
     },
 
     appearance = {
@@ -86,7 +87,8 @@ return {
             show_without_menu = true,
         },
         menu = {
-            auto_show = false,
+            auto_show = true,
+            border = "rounded",
         },
         list = {
             selection = {
@@ -107,6 +109,27 @@ return {
       },
     },
 
+    cmdline = {
+        --keymap = { preset = 'inherit' },
+        completion = {
+            ghost_test = {
+                enabled = true,
+                show_with_selection = true,
+                show_without_selection = true,
+                show_with_menu = true,
+                show_without_menu = true,
+            },
+            menu = {
+                auto_show = true,
+            },
+            list = {
+                selection = {
+                    preselect = false,
+                    auto_insert = true,
+                }
+            },
+        },
+    },
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
     -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
     -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
