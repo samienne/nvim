@@ -28,6 +28,8 @@ return {
 
         local opts = { noremap = true, silent = true }
         local on_attach = function(client, bufnr)
+            vim.notify("Attach to client: " .. tostring(bufnr))
+
             lspconfig.util.default_config.on_attach(client, bufnr)
 
             opts.buffer = bufnr
@@ -102,7 +104,7 @@ return {
             --keymap.set("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", opts)
 
             opts.desc = "Switch between source and header file (clangd)."
-            keymap.set("n", "<leader>a", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
+            keymap.set("n", "<leader>a", "<cmd>LspClangdSwitchSourceHeader<cr>", opts)
         end
 
         -- used to enable autocompletion (assign to every lsp server config)
@@ -132,13 +134,23 @@ return {
         table.insert(clangd, "--clang-tidy")
 
         -- configure clangd server
-        lspconfig["clangd"].setup({
+        vim.lsp.config.clangd = {
             cmd = clangd,
-            root_dir = lspconfig.util.root_pattern('compile_commands.json'),
+            root_markers = { "compile_commands.json" },
+            filetypes = { "c", "cpp" },
+            on_exit = function(code, signal, client_id)
+                if signal == 9 or signal == 12 then
+                    vim.schedule(function()
+                        vim.notify("Restarting clangd")
+                        vim.lsp.enable("clangd")
+                    end)
+                end
+            end,
+            on_attach = { vim.lsp.config.clangd.on_attach, on_attach },
             capabilities = capabilities,
-            on_attach = on_attach,
-        })
+        }
 
+        vim.lsp.enable("clangd")
         lspconfig["ts_ls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
