@@ -77,7 +77,7 @@ return {
             keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
             opts.desc = "Show documentation for what is under cursor"
-            keymap.set("n", "K", vim.lsp.buf.hover, opts)
+            keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end, opts)
 
             opts.desc = "Restart LSP"
             keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
@@ -129,6 +129,7 @@ return {
         end
 
         table.insert(clangd, "--background-index")
+        table.insert(clangd, "--clang-tidy")
 
         -- configure clangd server
         lspconfig["clangd"].setup({
