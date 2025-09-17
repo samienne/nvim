@@ -7,7 +7,17 @@ return {
     bigfile = { enabled = true },
     dashboard = { enabled = true },
     explorer = { enabled = true },
-    indent = { enabled = true },
+    indent = {
+        indent = {
+            priority = 1,
+            enabled = true,
+            hl = { "SnacksIndent" },
+        },
+        scope = {
+            priority = 2000,
+            hl = { "SnacksIndentScope" },
+        },
+    },
     input = { enabled = true },
     notifier = {
       enabled = true,
@@ -137,6 +147,32 @@ return {
           Snacks.debug.backtrace()
         end
         vim.print = _G.dd -- Override print to use snacks for `:=` command
+
+        --vim.api.nvim_set_hl(0, "comment", { italic = false })
+        vim.api.nvim_set_hl(0, "SnacksIndent", { italic = false })
+        vim.api.nvim_set_hl(0, "SnacksIndentScope2", { italic = false })
+
+        local hl = vim.api.nvim_get_hl(0, { name = "SnacksIndentScope" })
+        if hl then
+            hl.italic = false
+            vim.api.nvim_set_hl(0, "SnacksIndentScope", hl)
+        end
+
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            callback = function()
+                local hl = vim.api.nvim_get_hl(0, { name = "SnacksIndentScope" })
+                if hl then
+                    hl.italic = false
+                    vim.api.nvim_set_hl(0, "SnacksIndentScope", hl)
+                end
+            end,
+        })
+
+        local hl = vim.api.nvim_get_hl(0, { name = "comment" })
+        if hl then
+            hl.italic = false
+            vim.api.nvim_set_hl(0, "comment", hl)
+        end
 
         -- Create some toggle mappings
         Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
