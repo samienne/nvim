@@ -32,6 +32,27 @@ return {
                     "gitignore",
                 },
             })
+
+            require("nvim-treesitter.configs").setup({
+                textobjects = {
+                    select = {
+                        enable = true,
+                        keymaps = {
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                        },
+                    },
+                    swap = {
+                        enable = true,
+                        swap_next = {
+                            ["<leader>l"] = "@parameter.inner",
+                        },
+                        swap_previous = {
+                            ["<leader>h"] = "@parameter.inner",
+                        },
+                    },
+                },
+            })
         end,
     },
 }
